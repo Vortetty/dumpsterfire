@@ -47,7 +47,7 @@ for line in f.readlines():
             exit()
 
     elif parts[0] == "write":
-        pages[parts[1]] = " ".join(parts[1:])
+        pages[parts[1]] = " ".join(parts[2:])
 
     elif parts[0] == "toss":
         if curCont.open == True:
