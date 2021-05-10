@@ -25,9 +25,9 @@ for line in f.readlines():
 
     if parts[0] == "find":
         if curCont.open == False:
-            if " ".join(parts[1:]) not in usedTypes:
-                curCont = container(" ".join(parts[1:]))
-                usedTypes.append(" ".join(parts[1:]))
+            if " ".join(parts[1:]).strip(" ") not in usedTypes:
+                curCont = container(" ".join(parts[1:]).strip(" "))
+                usedTypes.append(" ".join(parts[1:]).strip(" "))
             else:
                 print(f"Error line: {lineNum}, You already burnt this container")
                 exit()
@@ -37,7 +37,7 @@ for line in f.readlines():
 
     elif parts[0] == "open" and curCont.open == False:
         if curCont.open == False:
-            if " ".join(parts[1:]) == curCont._type:
+            if " ".join(parts[1:]).strip(" ") == curCont._type:
                 curCont.open = True
             else:
                 print(f"Error line: {lineNum}, specified container must be what you are in")
@@ -47,12 +47,12 @@ for line in f.readlines():
             exit()
 
     elif parts[0] == "write":
-        pages[parts[1]] = " ".join(parts[2:])
+        pages[parts[1]] = " ".join(parts[2:]).strip(" ")
 
     elif parts[0] == "toss":
         if curCont.open == True:
             if curCont.burnt == False:
-                if " ".join(parts[2:]) == curCont._type:
+                if " ".join(parts[2:]).strip(" ") == curCont._type:
                     prntStack.append(pages[parts[1]])
                     pages[parts[1]] = ""
                 else:
@@ -67,7 +67,7 @@ for line in f.readlines():
             
     elif parts[0] == "burn":
         if curCont.open == True:
-            if " ".join(parts[1:]) == curCont._type:
+            if " ".join(parts[1:]).strip(" ") == curCont._type:
                 for i in prntStack:
                     print(f"[{curCont._type}]: {i}")
                 prntStack = []
@@ -82,7 +82,7 @@ for line in f.readlines():
     elif parts[0] == "close":
         if curCont.open == True:
             if curCont.burnt == True:
-                if " ".join(parts[1:]) == curCont._type:
+                if " ".join(parts[1:]).strip(" ") == curCont._type:
                     curCont = container(None)
                 else:
                     print(f"Error line: {lineNum}, specified container must be what you are in")
