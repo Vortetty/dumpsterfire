@@ -17,13 +17,13 @@ pages = {}
 
 
 for line in f.readlines():
-    parts = line.lower().split()
+    parts = line.split()
 
     parts.append('')
 
     lineNum += 1
 
-    if parts[0] == "find":
+    if parts[0].lower() == "find":
         if curCont.open == False:
             if " ".join(parts[1:]).strip(" ") not in usedTypes:
                 curCont = container(" ".join(parts[1:]).strip(" "))
@@ -35,7 +35,7 @@ for line in f.readlines():
             print(f"Error line: {lineNum}, cannot find a new container without closing current container")
             exit()
 
-    elif parts[0] == "open" and curCont.open == False:
+    elif parts[0].lower() == "open" and curCont.open == False:
         if curCont.open == False:
             if " ".join(parts[1:]).strip(" ") == curCont._type:
                 curCont.open = True
@@ -46,10 +46,10 @@ for line in f.readlines():
             print(f"Error line: {lineNum}, cannot open an open container")
             exit()
 
-    elif parts[0] == "write":
+    elif parts[0].lower() == "write":
         pages[parts[1]] = " ".join(parts[2:]).strip(" ")
 
-    elif parts[0] == "toss":
+    elif parts[0].lower() == "toss":
         if curCont.open == True:
             if curCont.burnt == False:
                 if " ".join(parts[2:]).strip(" ") == curCont._type:
@@ -65,7 +65,7 @@ for line in f.readlines():
             print(f"Error line: {lineNum}, cannot toss into a closed container")
             exit()
             
-    elif parts[0] == "burn":
+    elif parts[0].lower() == "burn":
         if curCont.open == True:
             if " ".join(parts[1:]).strip(" ") == curCont._type:
                 for i in prntStack:
@@ -79,7 +79,7 @@ for line in f.readlines():
             print(f"Error line: {lineNum}, cannot burn a closed container")
             exit()
 
-    elif parts[0] == "close":
+    elif parts[0].lower() == "close":
         if curCont.open == True:
             if curCont.burnt == True:
                 if " ".join(parts[1:]).strip(" ") == curCont._type:
