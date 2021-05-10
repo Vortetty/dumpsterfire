@@ -17,7 +17,7 @@ pages = {}
 
 
 for line in f.readlines():
-    parts = line.split()
+    parts = line.lower().split()
 
     parts.append('')
 
